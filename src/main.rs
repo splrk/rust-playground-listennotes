@@ -25,11 +25,13 @@ struct Episode {
     listennotes_edit_url: Result<Url, url::ParseError>,
 }
 
-fn secs_to_string(episode: &Episode) -> String {
-    let minutes = episode.audio_length_sec / 60;
-    let seconds = episode.audio_length_sec % 60;
+impl Episode {
+    fn length(&self) -> String {
+        let minutes = self.audio_length_sec / 60;
+        let seconds = self.audio_length_sec % 60;
 
-    format!("{:02}:{:02}", minutes, seconds)
+        format!("{:02}:{:02}", minutes, seconds)
+    }
 }
 
 fn main() {
@@ -59,8 +61,7 @@ fn main() {
     };
 
     println!(
-        "{}\n{}",
-        episode775.title,
-        secs_to_string(&episode775),
+        "{:#?}",
+        episode775.length(),
     );
 }
