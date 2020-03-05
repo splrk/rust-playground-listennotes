@@ -1,4 +1,5 @@
 use url::Url;
+use std::ops::Add;
 
 mod listen_notes;
 use listen_notes::{Podcast, Episode};
@@ -57,10 +58,15 @@ fn main() {
         },
     ];
 
+    let display = String::from(&episodes[0].title);
+    let display = Add::add(display, " (");
+    let display = Add::add(display, &episodes[0].length().to_string());
+    let display = Add::add(display, ")");
+
+
     println!(
-        "{} ({}) {:?} {}, {}",
-        episodes[0].title,
-        episodes[0].length(),
+        "{} {:?} {}, {}",
+        display,
         episodes[0].cmp(&episodes[1]),
         episodes[1].title,
         episodes[1].length()
