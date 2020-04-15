@@ -1,4 +1,5 @@
 use std::cmp::Ordering;
+use std::rc::Rc;
 use url::Url;
 
 pub struct Podcast {
@@ -9,13 +10,13 @@ pub struct Podcast {
     pub title: String,
 }
 
-pub struct Episode<'a> {
+pub struct Episode {
     pub id: String,
     pub link: Option<Url>,
     pub audio: Option<Url>,
     pub image: Option<Url>,
     pub title: String,
-    pub podcast: &'a Podcast,
+    pub podcast: Rc<Podcast>,
     pub thumbnail: Option<Url>,
     pub description: String,
     pub pub_date_ms: u128,
@@ -26,7 +27,7 @@ pub struct Episode<'a> {
     pub listennotes_edit_url: Option<Url>,
 }
 
-impl<'a> Episode<'a> {
+impl Episode {
     pub fn length(&self) -> String {
         let minutes = self.audio_length_sec / 60;
         let seconds = self.audio_length_sec % 60;
