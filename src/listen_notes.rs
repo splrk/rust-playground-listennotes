@@ -1,5 +1,6 @@
 use std::cmp::Ordering;
-use std::rc::Rc;
+use std::rc::Weak;
+use std::cell::RefCell;
 use url::Url;
 
 pub struct Podcast {
@@ -16,7 +17,7 @@ pub struct Episode {
     pub audio: Option<Url>,
     pub image: Option<Url>,
     pub title: String,
-    pub podcast: Rc<Podcast>,
+    pub podcast: RefCell<Weak<Podcast>>,
     pub thumbnail: Option<Url>,
     pub description: String,
     pub pub_date_ms: u128,
